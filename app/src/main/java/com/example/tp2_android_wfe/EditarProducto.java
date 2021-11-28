@@ -1,24 +1,24 @@
 package com.example.tp2_android_wfe;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tp2_android_wfe.db.DbProductos;
 import com.example.tp2_android_wfe.entidades.Productos;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class VerProducto extends AppCompatActivity {
+public class EditarProducto extends AppCompatActivity {
 
     EditText txtCodigo, txtNombre, txtPrecio, txtExistencia;
     Button btnGuardar;
 
-    FloatingActionButton fabEditar;
+    boolean correcto = false;
 
     Productos producto;
     int id = 0;
@@ -32,7 +32,6 @@ public class VerProducto extends AppCompatActivity {
         txtNombre = findViewById(R.id.txtNombre);
         txtPrecio = findViewById(R.id.txtPrecio);
         txtExistencia = findViewById(R.id.txtExistencia);
-        fabEditar = findViewById(R.id.fabEditar);
 
         btnGuardar = findViewById(R.id.btnGuardar);
 
@@ -48,7 +47,7 @@ public class VerProducto extends AppCompatActivity {
         } else {
             id = (int) savedInstanceState.getSerializable("ID");
         }
-        DbProductos dbProductos = new DbProductos(VerProducto.this );
+        DbProductos dbProductos = new DbProductos(EditarProducto.this );
         producto = dbProductos.verProducto( id );
 
         if (producto != null) {
@@ -57,22 +56,31 @@ public class VerProducto extends AppCompatActivity {
             txtPrecio.setText(producto.getPrecio());
             txtExistencia.setText(producto.getExistencia());
 
-            btnGuardar.setVisibility(View.INVISIBLE);
-
-            txtCodigo.setInputType(InputType.TYPE_NULL);
-            txtNombre.setInputType(InputType.TYPE_NULL);
-            txtPrecio.setInputType(InputType.TYPE_NULL);
-            txtExistencia.setInputType(InputType.TYPE_NULL);
         }
 
-        fabEditar.setOnClickListener(new View.OnClickListener() {
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( VerProducto.this, EditarProducto.class);
-                intent.putExtra("ID", id);
-                startActivity( intent );
+                if ( !txtCodigo.getText().toString().equals("") && !txtNombre.getText().toString().equals("") && !txtPrecio.getText().toString().equals("") && !txtExistencia.getText().toString().equals("")) {
+                    correcto = dbProductos.editarProducto( id, txtCodigo.getText().toString(), txtNombre.getText().toString(), txtPrecio.getText().toString(), txtExistencia.getText().toString());
+                    
+                    if ( correcto ) {
+                        Toast.makeText(EditarProducto.this, "Registro Modificado", Toast.LENGTH_SHORT).show();
+                        verProducto();
+                    } else {
+                        Toast.makeText(EditarProducto.this, "Error al modificar el registro", Toast.LENGTH_SHORT).show();
+                    }
+                
+                } else {
+                    Toast.makeText( EditarProducto.this, "Debe llenar los campos obligatorios", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
 
+    private void verProducto ( ) {
+        Intent intent = new Intent(this, VerProducto.class );
+        intent.putExtra( "ID", id );
+        startActivity( intent );
     }
 }

@@ -101,4 +101,29 @@ public class DbClientes extends DBHelper{
         cursorClientes.close();
         return cliente;
     }
+
+    public boolean editarCliente( int id, String ruc, String nombre, String email ) {
+
+        boolean correcto = false;
+
+        DBHelper dbHelper = new DBHelper(context);
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String update = "UPDATE " + TABLE_PRODUCTOS + " SET ruc = ' " + ruc + " ', nombre = ' " + nombre + " ', email = ' " + email + " ' WHERE id = ' " + id + " ' ";
+
+        try {
+            db.execSQL( update );
+            correcto = true;
+
+        } catch (Exception e ) {
+            e.toString();
+            correcto = false;
+        } finally {
+            db.close();
+        }
+
+        return correcto;
+
+    }
 }

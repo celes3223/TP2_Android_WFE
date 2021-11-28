@@ -103,4 +103,29 @@ public class DbProductos extends DBHelper {
 
         return producto;
     }
+
+    public boolean editarProducto( int id, String codigo, String nombre, String precio, String existencia ) {
+
+        boolean correcto = false;
+
+        DBHelper dbHelper = new DBHelper(context);
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        String update = "UPDATE " + TABLE_PRODUCTOS + " SET codigo = ' " + codigo + " ', nombre = ' " + nombre + " ', precio = ' " + precio + " ', existencia = ' " + existencia + " ' WHERE id = ' " + id + " ' ";
+
+        try {
+            db.execSQL( update );
+            correcto = true;
+
+        } catch (Exception e ) {
+            e.toString();
+            correcto = false;
+        } finally {
+            db.close();
+        }
+
+        return correcto;
+
+    }
 }
