@@ -22,13 +22,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String crear_producto = "CREATE TABLE " + TABLE_PRODUCTOS + "(" +
-                "codigo INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "codigo INTEGER NOT NULL," +
                 "nombre TEXT NOT NULL," +
                 "precio TEXT NOT NULL," +
                 "existencia TEXT)";
 
         String crear_cliente = "CREATE TABLE " + TABLE_CLIENTES + "(" +
-                "ruc INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "ruc INTEGER NOT NULL," +
                 "nombre TEXT NOT NULL," +
                 "email TEXT NOT NULL)";
 

@@ -5,7 +5,8 @@
     <string name="hint_existencia">Existencia</string>
     <string name="btn_guardar">Guardar</string>
     <string name="hint_email">Email</string>
-    <string name="menu_nuevo">Nuevo Registro</string>
+    <string name="nuevo_producto">Nuevo Producto</string>
+    <string name="nuevo_cliente">Nuevo Cliente</string>
     <string name="hint_codigo">Codigo</string>
     <string name="hint_ruc">Ruc</string>
 </resources>

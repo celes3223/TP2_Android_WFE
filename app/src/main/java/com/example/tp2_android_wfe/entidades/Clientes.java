@@ -2,8 +2,18 @@ package com.example.tp2_android_wfe.entidades;
 
 public class Clientes {
 
+    private int id;
     private String ruc;
     private String nombre;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String email;
 
     public String getRuc() {

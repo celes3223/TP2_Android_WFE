@@ -1,0 +1,61 @@
+package com.example.tp2_android_wfe;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.text.InputType;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.tp2_android_wfe.db.DbClientes;
+import com.example.tp2_android_wfe.entidades.Clientes;
+
+public class VerCliente extends AppCompatActivity {
+
+    EditText txtRuc, txtNombre, txtEmail;
+    Button btnGuardar;
+
+    Clientes cliente;
+    int id = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ver_cliente);
+
+        txtRuc = findViewById(R.id.txtRuc);
+        txtNombre = findViewById(R.id.txtNombre);
+        txtEmail = findViewById(R.id.txtEmail);
+        btnGuardar = findViewById(R.id.btnGuardar);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+
+            if ( extras == null) {
+                id = Integer.parseInt(null);
+            } else {
+                id = extras.getInt("ID");
+            }
+        } else {
+            id = (int) savedInstanceState.getSerializable("ID");
+        }
+        DbClientes dbClientes = new DbClientes(VerCliente.this );
+        cliente = dbClientes.verCliente( id );
+
+        if (cliente != null) {
+            txtRuc.setText(cliente.getRuc());
+            txtNombre.setText(cliente.getNombre());
+            txtEmail.setText(cliente.getEmail());
+
+            btnGuardar.setVisibility(View.INVISIBLE);
+
+            txtRuc.setInputType(InputType.TYPE_NULL);
+            txtNombre.setInputType(InputType.TYPE_NULL);
+            txtEmail.setInputType(InputType.TYPE_NULL);
+
+        }
+
+    }
+
+}

@@ -2,9 +2,19 @@ package com.example.tp2_android_wfe.entidades;
 
 public class Productos {
 
+    private int id;
     private String codigo;
     private String nombre;
     private String precio;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String existencia;
 
     public String getCodigo() {

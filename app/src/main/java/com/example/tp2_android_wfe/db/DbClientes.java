@@ -63,15 +63,42 @@ public class DbClientes extends DBHelper{
 
             do {
                 cliente = new Clientes();
-                cliente.setRuc(cursorClientes.getString(0));
-                cliente.setNombre(cursorClientes.getString(1));
-                cliente.setEmail(cursorClientes.getString(2));
+                cliente.setId(cursorClientes.getInt(0));
+                cliente.setRuc(cursorClientes.getString(1));
+                cliente.setNombre(cursorClientes.getString(2));
+                cliente.setEmail(cursorClientes.getString(3));
 
                 listaClientes.add( cliente );
             } while ( cursorClientes.moveToNext());
 
-            cursorClientes.close();
+
         }
+        cursorClientes.close();
+
         return listaClientes;
+    }
+
+    public Clientes verCliente ( int id ) {
+
+        DBHelper dbHelper = new DBHelper(context);
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Clientes cliente = null;
+        Cursor cursorClientes = null;
+
+        cursorClientes = db.rawQuery("SELECT * FROM " + TABLE_CLIENTES + " WHERE id = " + id + " LIMIT 1", null);
+
+        if ( cursorClientes.moveToFirst() ) {
+
+            cliente = new Clientes();
+            cliente.setId(cursorClientes.getInt(0));
+            cliente.setRuc(cursorClientes.getString(1));
+            cliente.setNombre(cursorClientes.getString(2));
+            cliente.setEmail(cursorClientes.getString(3));
+
+        }
+        cursorClientes.close();
+        return cliente;
     }
 }

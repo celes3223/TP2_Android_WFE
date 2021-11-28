@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnCrear;
+    //Button btnCrear;
     RecyclerView listaProductos;
     ArrayList<Productos> listaArrayProductos;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         btnCrear = findViewById( R.id.btnCrear );
 
         btnCrear.setOnClickListener(new View.OnClickListener() {
@@ -48,17 +48,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+*/
+        listaProductos = findViewById(R.id.listaProductos);
 
-//        listaProductos = findViewById(R.id.listaProductos);
-//
-//        listaProductos.setLayoutManager(new LinearLayoutManager(this ));
-//
-//        DbProductos dbProductos = new DbProductos( MainActivity.this );
-//
-//        listaArrayProductos = new ArrayList<>();
-//
-//        ListaProductosAdapter adapter = new ListaProductosAdapter(dbProductos.mostrarProductos());
-//        listaProductos.setAdapter(adapter);
+        listaProductos.setLayoutManager(new LinearLayoutManager(this ));
+
+        DbProductos dbProductos = new DbProductos( MainActivity.this );
+
+        listaArrayProductos = new ArrayList<>();
+
+        ListaProductosAdapter adapter = new ListaProductosAdapter(dbProductos.mostrarProductos());
+
+        listaProductos.setAdapter(adapter);
 
     }
 
@@ -74,22 +75,29 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item ) {
 
         switch( item.getItemId() ) {
-            case R.id.menuNuevo:
-                nuevoRegistro();
+            case R.id.nuevoProducto:
+                nuevoProducto();
                 return true;
-
+            case R.id.nuevoCliente:
+                nuevoCliente();
+                return true;
             default:
                 return super.onOptionsItemSelected( item );
         }
     }
 
-    private void nuevoRegistro ( ) {
+    private void nuevoProducto ( ) {
 
         Intent intent = new Intent( this, NuevoActivityProducto.class );
         startActivity( intent );
 
     }
 
+    private void nuevoCliente ( ) {
 
+        Intent intent = new Intent( this, NuevoActivityCliente.class );
+        startActivity( intent );
+
+    }
 
 }

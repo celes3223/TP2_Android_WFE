@@ -1,5 +1,7 @@
 package com.example.tp2_android_wfe.adaptadores;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tp2_android_wfe.R;
+import com.example.tp2_android_wfe.VerCliente;
 import com.example.tp2_android_wfe.entidades.Clientes;
 
 import java.util.ArrayList;
@@ -51,6 +54,16 @@ public class ListaClientesAdapter extends RecyclerView.Adapter<ListaClientesAdap
             viewRuc = itemView.findViewById(R.id.viewRuc);
             viewNombre = itemView.findViewById(R.id.viewNombre);
             viewEmail = itemView.findViewById(R.id.viewEmail);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = view.getContext();
+                    Intent intent = new Intent( context, VerCliente.class );
+                    intent.putExtra("ID", listaClientes.get(getAdapterPosition()).getId());
+                    context.startActivity( intent );
+                }
+            });
 
         }
     }

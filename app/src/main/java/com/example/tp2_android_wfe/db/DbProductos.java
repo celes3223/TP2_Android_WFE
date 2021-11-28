@@ -64,10 +64,11 @@ public class DbProductos extends DBHelper {
 
             do {
                 producto = new Productos();
-                producto.setCodigo(cursorProductos.getString(0));
-                producto.setNombre(cursorProductos.getString(1));
-                producto.setPrecio(cursorProductos.getString(2));
-                producto.setExistencia(cursorProductos.getString(3));
+                producto.setId(cursorProductos.getInt(0));
+                producto.setCodigo(cursorProductos.getString(1));
+                producto.setNombre(cursorProductos.getString(2));
+                producto.setPrecio(cursorProductos.getString(3));
+                producto.setExistencia(cursorProductos.getString(4));
 
                 listaProductos.add( producto );
             } while ( cursorProductos.moveToNext());
@@ -75,5 +76,31 @@ public class DbProductos extends DBHelper {
             cursorProductos.close();
         }
         return listaProductos;
+    }
+
+    public Productos verProducto (int id ) {
+
+        DBHelper dbHelper = new DBHelper(context);
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Productos producto = null;
+        Cursor cursorProductos = null;
+
+        cursorProductos = db.rawQuery("SELECT * FROM " + TABLE_PRODUCTOS + " WHERE id = " + id + " LIMIT 1", null);
+
+        if ( cursorProductos.moveToFirst() ) {
+
+            producto = new Productos();
+            producto.setId(cursorProductos.getInt(0));
+            producto.setCodigo(cursorProductos.getString(1));
+            producto.setNombre(cursorProductos.getString(2));
+            producto.setPrecio(cursorProductos.getString(3));
+            producto.setExistencia(cursorProductos.getString(4));
+
+        }
+        cursorProductos.close();
+
+        return producto;
     }
 }

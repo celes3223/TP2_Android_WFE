@@ -1,5 +1,7 @@
 package com.example.tp2_android_wfe.adaptadores;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tp2_android_wfe.R;
 
+import com.example.tp2_android_wfe.VerProducto;
 import com.example.tp2_android_wfe.entidades.Productos;
 
 import java.util.ArrayList;
@@ -54,6 +57,15 @@ public class ListaProductosAdapter extends RecyclerView.Adapter<ListaProductosAd
             viewPrecio = itemView.findViewById(R.id.viewPrecio);
             viewExistencia = itemView.findViewById(R.id.viewExistencia);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = view.getContext();
+                    Intent intent = new Intent( context, VerProducto.class );
+                    intent.putExtra("ID", listaProductos.get(getAdapterPosition()).getId());
+                    context.startActivity( intent );
+                }
+            });
         }
     }
 }
