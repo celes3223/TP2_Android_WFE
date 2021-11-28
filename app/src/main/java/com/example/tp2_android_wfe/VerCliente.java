@@ -2,6 +2,7 @@ package com.example.tp2_android_wfe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -10,11 +11,13 @@ import android.widget.EditText;
 
 import com.example.tp2_android_wfe.db.DbClientes;
 import com.example.tp2_android_wfe.entidades.Clientes;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class VerCliente extends AppCompatActivity {
 
     EditText txtRuc, txtNombre, txtEmail;
     Button btnGuardar;
+    FloatingActionButton fabEditar;
 
     Clientes cliente;
     int id = 0;
@@ -55,6 +58,15 @@ public class VerCliente extends AppCompatActivity {
             txtEmail.setInputType(InputType.TYPE_NULL);
 
         }
+
+        fabEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( VerCliente.this, EditarCliente.class);
+                intent.putExtra("ID", id);
+                startActivity( intent );
+            }
+        });
 
     }
 
