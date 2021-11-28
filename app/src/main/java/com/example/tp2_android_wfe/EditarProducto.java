@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tp2_android_wfe.db.DbProductos;
 import com.example.tp2_android_wfe.entidades.Productos;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EditarProducto extends AppCompatActivity {
 
     EditText txtCodigo, txtNombre, txtPrecio, txtExistencia;
     Button btnGuardar;
+    FloatingActionButton fabEditar, fabEliminar;
 
     boolean correcto = false;
 
@@ -32,6 +34,11 @@ public class EditarProducto extends AppCompatActivity {
         txtNombre = findViewById(R.id.txtNombre);
         txtPrecio = findViewById(R.id.txtPrecio);
         txtExistencia = findViewById(R.id.txtExistencia);
+
+        fabEditar = findViewById(R.id.fabEditar);
+        fabEditar.setVisibility(View.INVISIBLE);
+        fabEliminar = findViewById(R.id.fabEliminar);
+        fabEliminar.setVisibility(View.INVISIBLE);
 
         btnGuardar = findViewById(R.id.btnGuardar);
 

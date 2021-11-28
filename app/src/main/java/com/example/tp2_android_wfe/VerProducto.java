@@ -1,13 +1,16 @@
 package com.example.tp2_android_wfe;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.tp2_android_wfe.db.DbProductos;
 import com.example.tp2_android_wfe.entidades.Productos;
@@ -18,7 +21,7 @@ public class VerProducto extends AppCompatActivity {
     EditText txtCodigo, txtNombre, txtPrecio, txtExistencia;
     Button btnGuardar;
 
-    FloatingActionButton fabEditar;
+    FloatingActionButton fabEditar, fabEliminar;
 
     Productos producto;
     int id = 0;
@@ -33,6 +36,7 @@ public class VerProducto extends AppCompatActivity {
         txtPrecio = findViewById(R.id.txtPrecio);
         txtExistencia = findViewById(R.id.txtExistencia);
         fabEditar = findViewById(R.id.fabEditar);
+        fabEliminar = findViewById(R.id.fabEliminar);
 
         btnGuardar = findViewById(R.id.btnGuardar);
 
@@ -73,6 +77,35 @@ public class VerProducto extends AppCompatActivity {
                 startActivity( intent );
             }
         });
+
+        fabEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder( VerProducto.this );
+                builder.setMessage("¿Desea eliminar este producto?")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if ( dbProductos.eliminarProducto( id ) ) {
+                                    Toast.makeText(VerProducto.this, "Producto Eliminado", Toast.LENGTH_SHORT).show();
+                                    listaProducto();
+                                }
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
+            }
+        });
+
+    }
+
+    private void listaProducto ( ) {
+        Intent intent = new Intent(this, MainActivity.class );
+        startActivity( intent );
 
     }
 }

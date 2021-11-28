@@ -1,13 +1,16 @@
 package com.example.tp2_android_wfe;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.tp2_android_wfe.db.DbClientes;
 import com.example.tp2_android_wfe.entidades.Clientes;
@@ -17,7 +20,7 @@ public class VerCliente extends AppCompatActivity {
 
     EditText txtRuc, txtNombre, txtEmail;
     Button btnGuardar;
-    FloatingActionButton fabEditar;
+    FloatingActionButton fabEditar, fabEliminar;
 
     Clientes cliente;
     int id = 0;
@@ -31,6 +34,8 @@ public class VerCliente extends AppCompatActivity {
         txtNombre = findViewById(R.id.txtNombre);
         txtEmail = findViewById(R.id.txtEmail);
         btnGuardar = findViewById(R.id.btnGuardar);
+        fabEditar = findViewById(R.id.fabEditar);
+        fabEliminar = findViewById(R.id.fabEliminar);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -67,6 +72,36 @@ public class VerCliente extends AppCompatActivity {
                 startActivity( intent );
             }
         });
+
+        fabEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder( VerCliente.this );
+                builder.setMessage("¿Desea eliminar este cliente?")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if ( dbClientes.eliminarCliente( id ) ) {
+                                    Toast.makeText(VerCliente.this, "Cliente Eliminado", Toast.LENGTH_SHORT).show();
+                                    listaCliente();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
+            }
+        });
+
+    }
+
+    private void listaCliente ( ) {
+        Intent intent = new Intent(this, MainActivity.class );
+        startActivity( intent );
 
     }
 

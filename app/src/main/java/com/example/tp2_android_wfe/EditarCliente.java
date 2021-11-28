@@ -13,11 +13,13 @@ import com.example.tp2_android_wfe.db.DbClientes;
 import com.example.tp2_android_wfe.db.DbProductos;
 import com.example.tp2_android_wfe.entidades.Clientes;
 import com.example.tp2_android_wfe.entidades.Productos;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EditarCliente extends AppCompatActivity {
 
     EditText txtRuc, txtNombre, txtEmail;
     Button btnGuardar;
+    FloatingActionButton fabEditar, fabEliminar;
 
     boolean correcto = false;
 
@@ -32,6 +34,10 @@ public class EditarCliente extends AppCompatActivity {
         txtRuc = findViewById(R.id.txtCodigo);
         txtNombre = findViewById(R.id.txtNombre);
         txtEmail = findViewById(R.id.txtPrecio);
+        fabEditar = findViewById(R.id.fabEditar);
+        fabEditar.setVisibility(View.INVISIBLE);
+        fabEliminar = findViewById(R.id.fabEliminar);
+        fabEliminar.setVisibility(View.INVISIBLE);
 
         btnGuardar = findViewById(R.id.btnGuardar);
 
